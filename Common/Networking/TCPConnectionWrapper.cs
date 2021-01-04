@@ -1,4 +1,6 @@
 ﻿using Common.Encryption;
+using Common.Extensions;
+using Newtonsoft.Json;
 using System;
 using System.Net.Sockets;
 
@@ -19,12 +21,24 @@ namespace Common.Networking {
             _encryptionPair = encryptionPair;
         }
 
-        public bool SendMessage(NetworkPacket packet) {
-            throw new NotImplementedException();
+        public void SendMessage(NetworkPacket packet) {
+            if (_isDisposed)
+                throw new ObjectDisposedException("TCPConnectionWrapper");
+
+            string packetJSON = JsonConvert.SerializeObject(packet);
+            string encryptedMessage = SymetricKeyEncryption.Encode(packetJSON, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
+            byte[] packetBytes = encryptedMessage.AsASCIIBytes();
+            _connectionStream.Write(packetBytes, 0, packetBytes.Length);
         }
 
-        public NetworkPacket YieldForPacket() {
-            throw new NotImplementedException();
+        public NetworkPacket LockForPacket() {
+            if (_isDisposed)
+                throw new ObjectDisposedException("TCPConnectionWrapper");
+
+            string encryptedData = _connectionStream.ReadAllDataAsASCIIString();
+            string decrpytedPacketJSON = SymetricKeyEncryption.Decode(encryptedData, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
+            NetworkPacket packet = JsonConvert.DeserializeObject<NetworkPacket>(decrpytedPacketJSON);
+            return packet;
         }
 
         public abstract bool ResetSymetricKey();

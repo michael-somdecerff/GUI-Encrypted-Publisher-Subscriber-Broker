@@ -47,6 +47,7 @@
     <Compile Include="Encryption\SymetricEncryptionPair.cs" />
     <Compile Include="Encryption\SymetricKeyEncryption.cs" />
     <Compile Include="Extensions\NetworkStreamExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Networking\NetworkPacket.cs" />
     <Compile Include="Networking\TCPConnectionWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
