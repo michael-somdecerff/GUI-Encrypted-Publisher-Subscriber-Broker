@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Encryption;
+using System;
 using System.Net.Sockets;
 
 namespace Common.Networking {
@@ -6,14 +7,16 @@ namespace Common.Networking {
         private bool _isDisposed = false;
 
         private NetworkStream _connectionStream;
-        private byte[] _symetricKey;
+        private SymetricEncryptionPair _encryptionPair;
 
-        public TCPConnectionWrapper(NetworkStream stream, byte[] symetricKey) {
-            if(stream == null || symetricKey == null)
-                throw new ArgumentNullException();
+        public TCPConnectionWrapper(NetworkStream stream, SymetricEncryptionPair encryptionPair) {
+            if(stream == null)
+                throw new ArgumentNullException("Stream can't be null");
+            if (encryptionPair == null)
+                throw new ArgumentNullException("EncryptionPair can't be null");
 
             _connectionStream = stream;
-            _symetricKey = symetricKey;
+            _encryptionPair = encryptionPair;
         }
 
         public bool SendMessage(NetworkPacket packet) {
