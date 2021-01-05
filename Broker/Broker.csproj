@@ -43,11 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\PrimaryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\PrimaryForm.Designer.cs">
+      <DependentUpon>PrimaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Networking\BrokerTCPConnection.cs" />
     <Compile Include="Program.cs" />

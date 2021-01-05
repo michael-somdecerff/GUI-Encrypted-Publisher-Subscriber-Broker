@@ -41,7 +41,12 @@ namespace Common.Networking {
             return packet;
         }
 
-        public abstract bool ResetSymetricKey();
+        public void SetSymetricKey(SymetricEncryptionPair pair) {
+            if (pair == null)
+                throw new ArgumentNullException("Key can't be null");
+
+            _encryptionPair = pair;
+        }
 
         ~TCPConnectionWrapper() {
             Dispose();

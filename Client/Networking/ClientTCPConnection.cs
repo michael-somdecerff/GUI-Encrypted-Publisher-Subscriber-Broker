@@ -8,8 +8,6 @@ namespace Client.Networking {
         public ClientTCPConnection(NetworkStream stream, SymetricEncryptionPair encryptionPair) : base(stream, encryptionPair) 
             { }
 
-        public override bool ResetSymetricKey() {
-            throw new NotImplementedException();
-        }
+
     }
 }

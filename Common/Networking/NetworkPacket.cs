@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Common.Networking {
-    public enum PacketType : byte { Connect, Disconnect, }
+    public enum PacketType : byte {  }
         
     public class NetworkPacket {
         [JsonProperty]

@@ -8,8 +8,6 @@ namespace Broker.Networking {
         public BrokerTCPConnection(NetworkStream stream, SymetricEncryptionPair encryptionPair) : base(stream, encryptionPair) 
             { }
 
-        public override bool ResetSymetricKey() {
-            throw new NotImplementedException();
-        }
+
     }
 }
