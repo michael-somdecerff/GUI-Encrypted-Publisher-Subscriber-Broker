@@ -1,5 +1,7 @@
 ﻿using Common.Encryption;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace UnitTests {
     [TestClass]
@@ -36,6 +38,24 @@ namespace UnitTests {
 
             // Assert
             Assert.AreEqual(str, decrpyted, "Input string and decrypted output string are not the same");
+        }
+
+        [TestMethod]
+        public void PublicPrivateEncryption_JsonEncode_Decode() {
+            // Setup test string
+            string message = "This is an important message";
+
+            // Generate Encryption Data
+            PublicPrivateEncryptionPair pair = PublicPrivateEncryption.GenerateEncryptionPair();
+            string publicKeyJson = JsonConvert.SerializeObject(pair.PublicKey);
+            RSAParameters publicKeyFromJson = JsonConvert.DeserializeObject<RSAParameters>(publicKeyJson);
+
+            // Encode and decode the string
+            byte[] encrpyted = PublicPrivateEncryption.Encode(message, publicKeyFromJson);
+            string decrpyted = PublicPrivateEncryption.Decode(encrpyted, pair.PrivateKey);
+
+            // Assert
+            Assert.AreEqual(message, decrpyted, "Input string and decrypted output string are not the same");
         }
     }
 }

@@ -5,7 +5,7 @@ using System;
 using System.Net.Sockets;
 
 namespace Common.Networking {
-    public abstract class TCPConnectionWrapper : IDisposable {
+    public class TCPConnectionWrapper : IDisposable {
         private bool _isDisposed = false;
 
         private readonly NetworkStream _connectionStream;
