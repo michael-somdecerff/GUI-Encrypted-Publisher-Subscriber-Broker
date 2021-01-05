@@ -27,7 +27,7 @@ namespace Common.Networking {
 
             string packetJSON = JsonConvert.SerializeObject(packet);
             string encryptedMessage = SymetricKeyEncryption.Encode(packetJSON, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
-            byte[] packetBytes = encryptedMessage.AsASCIIBytes();
+            byte[] packetBytes = encryptedMessage.AsUTF8Bytes();
             _connectionStream.Write(packetBytes, 0, packetBytes.Length);
         }
 
@@ -35,7 +35,7 @@ namespace Common.Networking {
             if (_isDisposed)
                 throw new ObjectDisposedException("TCPConnectionWrapper");
 
-            string encryptedData = _connectionStream.ReadAllDataAsASCIIString();
+            string encryptedData = _connectionStream.ReadAllDataAsUTF8String();
             string decrpytedPacketJSON = SymetricKeyEncryption.Decode(encryptedData, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
             NetworkPacket packet = JsonConvert.DeserializeObject<NetworkPacket>(decrpytedPacketJSON);
             return packet;
