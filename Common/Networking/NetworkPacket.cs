@@ -1,20 +1,21 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Common.Networking {
-    public enum PacketType : byte {  }
+    public enum PacketType : byte { None, Connect }
         
     public class NetworkPacket {
         [JsonProperty]
         public PacketType Type { get; private set; }
         [JsonProperty]
-        public string[] Data { get; private set; }
+        public List<byte[]> Data { get; private set; }
 
-        public NetworkPacket(PacketType type) : this(type, new string[0]) 
+        public NetworkPacket(PacketType type) : this(type, new List<byte[]>()) 
             { }
 
         [JsonConstructor]
-        public NetworkPacket(PacketType type, string[] data) {
+        public NetworkPacket(PacketType type, List<byte[]> data) {
             if (data == null) {
                 throw new ArgumentNullException("Packet data can't be null");
             }
@@ -23,7 +24,7 @@ namespace Common.Networking {
             Data = data;
         }
 
-        public int PacketDataLength() { return Data.Length; }
+        public int PacketDataLength() { return Data.Count; }
 
         public static string Serialize(NetworkPacket packet) {
             return JsonConvert.SerializeObject(packet);
