@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Common.Networking {
     public enum PacketType : byte {  }
@@ -17,8 +15,9 @@ namespace Common.Networking {
 
         [JsonConstructor]
         public NetworkPacket(PacketType type, string[] data) {
-            if (data == null) 
+            if (data == null) {
                 throw new ArgumentNullException("Packet data can't be null");
+            }
 
             Type = type;
             Data = data;

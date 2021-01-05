@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Common.Extensions;
 using System.Security.Cryptography;
-using Common.Extensions;
 
 namespace Common.Encryption {
     public static class PublicPrivateEncryption {

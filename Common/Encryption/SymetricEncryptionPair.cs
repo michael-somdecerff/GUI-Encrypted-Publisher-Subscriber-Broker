@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Common.Encryption {
     public class SymetricEncryptionPair {
@@ -14,10 +11,13 @@ namespace Common.Encryption {
 
         [JsonConstructor]
         public SymetricEncryptionPair(byte[] key, byte[] iv) {
-            if (key == null)
+            if (key == null) {
                 throw new ArgumentNullException("Key argument is null");
-            if (iv == null)
+            }
+
+            if (iv == null) {
                 throw new ArgumentNullException("Iv argument is null");
+            }
 
             SymetricKey = key;
             InitVector = iv;

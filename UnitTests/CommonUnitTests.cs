@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Encryption;
+﻿using Common.Encryption;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests {
@@ -9,9 +8,9 @@ namespace UnitTests {
         public void SymetricKeyEncryption_Encode_Decode() {
             // Setup test string
             string str = "This is a important string";
-            
+
             // Generate encryption data 
-            var pair = SymetricKeyEncryption.GenerateEncryptionPair();
+            SymetricEncryptionPair pair = SymetricKeyEncryption.GenerateEncryptionPair();
             byte[] key = pair.SymetricKey;
             byte[] iv = pair.InitVector;
 

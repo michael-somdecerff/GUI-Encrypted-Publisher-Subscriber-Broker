@@ -8,22 +8,26 @@ namespace Common.Networking {
     public abstract class TCPConnectionWrapper : IDisposable {
         private bool _isDisposed = false;
 
-        private NetworkStream _connectionStream;
+        private readonly NetworkStream _connectionStream;
         private SymetricEncryptionPair _encryptionPair;
 
         public TCPConnectionWrapper(NetworkStream stream, SymetricEncryptionPair encryptionPair) {
-            if(stream == null)
+            if(stream == null) {
                 throw new ArgumentNullException("Stream can't be null");
-            if (encryptionPair == null)
+            }
+
+            if (encryptionPair == null) {
                 throw new ArgumentNullException("EncryptionPair can't be null");
+            }
 
             _connectionStream = stream;
             _encryptionPair = encryptionPair;
         }
 
         public void SendMessage(NetworkPacket packet) {
-            if (_isDisposed)
+            if (_isDisposed) {
                 throw new ObjectDisposedException("TCPConnectionWrapper");
+            }
 
             string packetJSON = JsonConvert.SerializeObject(packet);
             string encryptedMessage = SymetricKeyEncryption.Encode(packetJSON, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
@@ -32,8 +36,9 @@ namespace Common.Networking {
         }
 
         public NetworkPacket LockForPacket() {
-            if (_isDisposed)
+            if (_isDisposed) {
                 throw new ObjectDisposedException("TCPConnectionWrapper");
+            }
 
             string encryptedData = _connectionStream.ReadAllDataAsUTF8String();
             string decrpytedPacketJSON = SymetricKeyEncryption.Decode(encryptedData, _encryptionPair.SymetricKey, _encryptionPair.InitVector);
@@ -42,8 +47,9 @@ namespace Common.Networking {
         }
 
         public void SetSymetricKey(SymetricEncryptionPair pair) {
-            if (pair == null)
+            if (pair == null) {
                 throw new ArgumentNullException("Key can't be null");
+            }
 
             _encryptionPair = pair;
         }
