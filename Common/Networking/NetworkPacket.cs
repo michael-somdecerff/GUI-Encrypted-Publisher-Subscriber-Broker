@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 
 namespace Common.Networking {
-    public enum PacketType : byte { None, Connect }
+    public enum PacketType : byte { Connect, Disconnect, ResetSymetricKey, CreateTopic, RenameTopic, 
+        SendMessageTopic, DeleteTopic, SubscribeToTopic, UnsubFromTopic, /*Account related packet types*/ }
         
     public class NetworkPacket {
         [JsonProperty]

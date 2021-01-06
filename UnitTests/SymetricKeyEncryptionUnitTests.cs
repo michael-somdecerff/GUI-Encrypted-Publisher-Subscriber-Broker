@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace UnitTests {
     [TestClass]
-    public class EymetricKeyEncryptionUnitTests {
+    public class SymetricKeyEncryptionUnitTests {
         [TestMethod]
         public void SymetricKeyEncryption_Encode_Decode() {
             // Setup test string

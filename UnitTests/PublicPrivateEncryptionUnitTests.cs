@@ -34,7 +34,7 @@ namespace UnitTests {
             PublicPrivateEncryptionPair pair = PublicPrivateEncryption.GenerateEncryptionPair();
 
             // Serialize public key into json, then into a byte[] to be send with the network packet 
-            NetworkPacket packet = new NetworkPacket(PacketType.None, new List<byte[]>() {
+            NetworkPacket packet = new NetworkPacket(PacketType.Connect, new List<byte[]>() {
                 JsonConvert.SerializeObject(pair.PublicKey).AsUTF8Bytes()
             });
 
