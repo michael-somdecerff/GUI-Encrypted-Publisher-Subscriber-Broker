@@ -47,7 +47,10 @@ namespace Common.Networking {
         }
 
         public void SetSymetricKey(SymetricEncryptionPair pair) {
-            if (pair == null) {
+            if (_isDisposed) {
+                throw new ObjectDisposedException("TCPConnectionWrapper");
+            }
+			else if (pair == null) {
                 throw new ArgumentNullException("Key can't be null");
             }
 
