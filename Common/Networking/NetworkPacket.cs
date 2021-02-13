@@ -17,12 +17,8 @@ namespace Common.Networking {
 
         [JsonConstructor]
         public NetworkPacket(PacketType type, List<byte[]> data) {
-            if (data == null) {
-                throw new ArgumentNullException("Packet data can't be null");
-            }
-
             Type = type;
-            Data = data;
+            Data = data ?? throw new ArgumentNullException("Packet data can't be null");
         }
 
         public int PacketDataLength() { return Data.Count; }

@@ -12,16 +12,8 @@ namespace Common.Networking {
         private SymetricEncryptionPair _encryptionPair;
 
         public TCPConnectionWrapper(NetworkStream stream, SymetricEncryptionPair encryptionPair) {
-            if(stream == null) {
-                throw new ArgumentNullException("Stream can't be null");
-            }
-
-            if (encryptionPair == null) {
-                throw new ArgumentNullException("EncryptionPair can't be null");
-            }
-
-            _connectionStream = stream;
-            _encryptionPair = encryptionPair;
+            _connectionStream = stream ?? throw new ArgumentNullException("Stream can't be null");
+            _encryptionPair = encryptionPair ?? throw new ArgumentNullException("EncryptionPair can't be null");
         }
 
         public void SendMessage(NetworkPacket packet) {
@@ -50,11 +42,8 @@ namespace Common.Networking {
             if (_isDisposed) {
                 throw new ObjectDisposedException("TCPConnectionWrapper");
             }
-			else if (pair == null) {
-                throw new ArgumentNullException("Key can't be null");
-            }
 
-            _encryptionPair = pair;
+            _encryptionPair = pair ?? throw new ArgumentNullException("Key can't be null");
         }
 
         ~TCPConnectionWrapper() {

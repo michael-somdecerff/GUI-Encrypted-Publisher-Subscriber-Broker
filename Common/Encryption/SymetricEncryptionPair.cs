@@ -11,16 +11,8 @@ namespace Common.Encryption {
 
         [JsonConstructor]
         public SymetricEncryptionPair(byte[] key, byte[] iv) {
-            if (key == null) {
-                throw new ArgumentNullException("Key argument is null");
-            }
-
-            if (iv == null) {
-                throw new ArgumentNullException("Iv argument is null");
-            }
-
-            SymetricKey = key;
-            InitVector = iv;
+            SymetricKey = key ?? throw new ArgumentNullException("Key argument is null");
+            InitVector = iv ?? throw new ArgumentNullException("Iv argument is null");
         }
     }
 }
